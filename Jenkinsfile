@@ -1,7 +1,6 @@
 pipeline {
 agent any
 
-```
 environment {
     IMAGE_NAME = "ankitghodekar/flask-devsecops-app"
     IMAGE_TAG = "latest"
@@ -65,12 +64,12 @@ stages {
     }
 }
 
-post {
-    success {
-        echo 'Pipeline executed successfully!'
-    }
-    failure {
-        echo 'Pipeline failed!'
+    post {
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
     }
 }
-
