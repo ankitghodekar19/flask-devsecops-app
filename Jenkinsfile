@@ -27,6 +27,16 @@ stages {
         }
     }
 
+    stage('Trivy Image Scan') {
+        steps {
+            sh '''
+            trivy image --severity HIGH,CRITICAL \
+            $IMAGE_NAME:$IMAGE_TAG
+            '''
+        }
+    }
+
+
     stage('Push Docker Image') {
         steps {
             withCredentials([usernamePassword(
