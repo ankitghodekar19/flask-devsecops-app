@@ -20,12 +20,10 @@ stages {
         steps {
             withSonarQubeEnv('sonar-server') {
                 sh '''
-                echo "Running SonarQube Analysis"
                 sonar-scanner \
                   -Dsonar.projectKey=flask-devsecops-app \
                   -Dsonar.sources=. \
-                  -Dsonar.host.url=$SONAR_HOST_URL \
-                  -Dsonar.token=$SONAR_AUTH_TOKEN
+                  -Dsonar.host.url=$SONAR_HOST_URL
                 '''
             }
         }
@@ -66,3 +64,13 @@ stages {
         }
     }
 }
+
+post {
+    success {
+        echo 'Pipeline executed successfully!'
+    }
+    failure {
+        echo 'Pipeline failed!'
+    }
+}
+
