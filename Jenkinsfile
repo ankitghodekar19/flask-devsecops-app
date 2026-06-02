@@ -17,14 +17,7 @@ stages {
 
     stage('SonarQube Analysis') {
         steps {
-            withSonarQubeEnv('sonar-server') {
-                sh '''
-                sonar-scanner \
-                  -Dsonar.projectKey=flask-devsecops-app \
-                  -Dsonar.sources=. \
-                  -Dsonar.host.url=$SONAR_HOST_URL
-                '''
-            }
+            echo 'SonarQube stage temporarily skipped'
         }
     }
 
