@@ -30,12 +30,13 @@ stages {
     stage('Trivy Image Scan') {
         steps {
             sh '''
-            trivy image --severity HIGH,CRITICAL \
+            trivy image \
+            --format table \
+            -o trivy-report.txt \
             $IMAGE_NAME:$IMAGE_TAG
             '''
         }
     }
-
 
     stage('Push Docker Image') {
         steps {
@@ -74,5 +75,9 @@ stages {
         failure {
             echo 'Pipeline failed!'
         }
+        always {
+        archiveArtifacts artifacts: 'trivy-report.txt'
+        }
+
     }
 }
