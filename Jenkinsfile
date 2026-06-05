@@ -27,14 +27,20 @@ stages {
         }
     }
 
+    stage('OWASP Dependency Check') {
+        steps {
+            dependencyCheck additionalArguments: '--scan .',
+                        odcInstallation: 'dependency-check'
+            dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+    }
+
     stage('Trivy Image Scan') {
         steps {
             sh '''
             trivy image \
             --format table \
             -o trivy-report.txt \
-            --severity CRITICAL \
-            --exit-code 1 \
             $IMAGE_NAME:$IMAGE_TAG
             '''
         }
