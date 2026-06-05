@@ -33,10 +33,13 @@ stages {
             trivy image \
             --format table \
             -o trivy-report.txt \
+            --severity CRITICAL \
+            --exit-code 1 \
             $IMAGE_NAME:$IMAGE_TAG
             '''
         }
     }
+    
 
     stage('Push Docker Image') {
         steps {
